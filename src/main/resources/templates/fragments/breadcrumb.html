@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="">
+<head>
+    <title>breadcrumb</title>
+</head>
+<body>
+<section th:fragment="breadcrumb">
+
+    <div class="u-s-p-y-60">
+
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="breadcrumb">
+                    <div class="breadcrumb__wrap">
+                        <ul class="breadcrumb__list">
+                            <li class="is-marked" th:each="breadcrumb : ${breadcrumbs}">
+                                <a th:href="${breadcrumb.getPath()}" th:text="${breadcrumb.getName()}">Name</a> /
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>
