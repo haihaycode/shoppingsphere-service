@@ -23,35 +23,31 @@
     <link rel="stylesheet" th:href="@{css/app.css}">
 </head>
 <body>
+<div class="config">
+    <!--preloader.html-->
+    <div id="app">
 
-<body class="config">
-<!--preloader.html-->
-  <div id="app">
+        <header class="header--style-1 header--box-shadow">
+            <!-- nav1 -->
+            <nav th:replace="~{fragments/nav1 :: nav1}"></nav>
+            <!-- nav2 -->
+            <nav th:replace="~{fragments/nav2 :: nav2}"></nav>
 
-      <header class="header--style-1 header--box-shadow">
-        <!--    nav1-->
-          <nav th:replace="fragments/nav1 :: nav1"></nav>
-        <!--    nav2-->
-          <nav th:replace="fragments/nav2 :: nav2"></nav>
-      </header>
+        </header>
 
-      <div class="app-content">
-          <!--       breadcrumb.html-->
-          <nav th:replace="fragments/breadcrumb :: breadcrumb"></nav>
-          <!--          content-->
-          <section layout:fragment="content"></section>
-          <!--        end-content-->
+        <div class="app-content">
+            <!-- breadcrumb.html -->
+            <nav th:replace="~{fragments/breadcrumb :: breadcrumb}"></nav>
+            <!-- content -->
+            <section layout:fragment="content"></section>
+            <!-- end-content -->
 
-
-      </div>
-       <footer th:replace="fragments/footer :: footer"></footer>
-        <!--       footer-->
-
-      </div>
-
+        </div>
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+        <!-- footer -->
+    </div>
 
 </div>
-
 
 
 
