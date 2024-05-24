@@ -7,7 +7,7 @@
 <body>
 <section th:fragment="breadcrumb">
 
-    <div class="u-s-p-y-60">
+    <div class="u-s-p-y-20">
 
         <!--====== Section Content ======-->
         <div class="section__content">
@@ -15,8 +15,12 @@
                 <div class="breadcrumb">
                     <div class="breadcrumb__wrap">
                         <ul class="breadcrumb__list">
-                            <li class="is-marked" th:each="breadcrumb : ${breadcrumbs}">
-                                <a th:href="${breadcrumb.getPath()}" th:text="${breadcrumb.getName()}">Name</a> /
+                            <li class="is-marked" th:each="breadcrumb, stat : ${breadcrumbs}">
+                                <a th:href="${breadcrumb.getPath()}"
+                                   th:style="${!stat.last} ? 'color: orange' : ''">
+                                    <span th:text="${breadcrumb.getName()}"></span>
+                                    <span th:if="${!stat.last}" style="color:#0D0A0A" >&nbsp;/&nbsp;</span>
+                                </a>
                             </li>
                         </ul>
                     </div>

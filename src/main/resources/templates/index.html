@@ -7,8 +7,10 @@
 <body>
 <section layout:fragment="content">
 
- Trang chủ
-
+    <div th:replace="~{fragments/slider :: slider}"></div>
+    <div th:replace="~{fragments/service :: service}"></div>
+    <div th:replace="~{fragments/topSell :: topSell}"></div>
+    <div th:replace="~{fragments/categories :: categories}"></div>
 </section>
 </body>
 </html>
