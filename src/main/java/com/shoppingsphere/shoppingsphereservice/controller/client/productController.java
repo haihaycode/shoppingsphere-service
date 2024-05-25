@@ -20,4 +20,8 @@ public class productController {
     public String productDetail(Model model , @PathVariable("id") Optional<String> id){
         return "product/product-detail";
     }
+    @GetMapping("/products1")
+    public String productDetail1(Model model ){
+        return "product/product-detail";
+    }
 }

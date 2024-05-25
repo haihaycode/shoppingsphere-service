@@ -19,7 +19,7 @@
                                 <span>Item is added successfully!</span></div>
                             <div class="success__img-wrap">
 
-                                <img class="u-img-fluid" src="images/product/electronic/product1.jpg" alt=""></div>
+                                <img class="u-img-fluid" th:src="@{/images/product/electronic/product1.jpg}" alt=""></div>
                             <div class="success__info-wrap">
 
                                 <span class="success__name">Beats Bomb Wireless Headphone</span>
@@ -37,9 +37,9 @@
 
                                 <a class="s-option__link btn--e-white-brand-shadow" data-dismiss="modal">CONTINUE SHOPPING</a>
 
-                                <a class="s-option__link btn--e-white-brand-shadow" href="cart.html">VIEW CART</a>
+                                <a class="s-option__link btn--e-white-brand-shadow" th:href="@{/cart}">VIEW CART</a>
 
-                                <a class="s-option__link btn--e-brand-shadow" href="checkout.html">PROCEED TO CHECKOUT</a></div>
+                                <a class="s-option__link btn--e-brand-shadow"  th:href="@{/checkout}">PROCEED TO CHECKOUT</a></div>
                         </div>
                     </div>
                 </div>

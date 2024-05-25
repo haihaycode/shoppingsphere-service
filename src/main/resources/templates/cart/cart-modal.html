@@ -28,7 +28,7 @@
                              <a class="mini-product__link" href="product-detail.html">
 
                                  <img class="u-img-fluid"
-                                      src="images/product/electronic/product3.jpg"
+                                      th:src="@{/images/product/electronic/product3.jpg}"
                                       alt=""></a>
                          </div>
                          <div class="mini-product__info-wrapper">
@@ -62,7 +62,7 @@
                              <a class="mini-product__link" href="product-detail.html">
 
                                  <img class="u-img-fluid"
-                                      src="images/product/electronic/product18.jpg"
+                                      th:src="@{/images/product/electronic/product3.jpg}"
                                       alt=""></a>
                          </div>
                          <div class="mini-product__info-wrapper">
@@ -96,7 +96,7 @@
                              <a class="mini-product__link" href="product-detail.html">
 
                                  <img class="u-img-fluid"
-                                      src="images/product/women/product8.jpg" alt=""></a>
+                                      th:src="@{/images/product/electronic/product8.jpg}" alt=""></a>
                          </div>
                          <div class="mini-product__info-wrapper">
 
@@ -129,7 +129,7 @@
                              <a class="mini-product__link" href="product-detail.html">
 
                                  <img class="u-img-fluid"
-                                      src="images/product/men/product8.jpg" alt=""></a>
+                                      th:src="@{/images/product/electronic/product8.jpg}" alt=""></a>
                          </div>
                          <div class="mini-product__info-wrapper">
 
@@ -166,11 +166,11 @@
                  </div>
                  <div class="mini-action">
 
-                     <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED
+                     <a class="mini-link btn--e-brand-b-2" th:href="@{/checkout}">PROCEED
                          TO CHECKOUT</a>
 
                      <a class="mini-link btn--e-transparent-secondary-b-2"
-                        href="cart.html">VIEW CART</a>
+                        th:href="@{/cart}">VIEW CART</a>
                  </div>
              </div>
              <!--====== End - Mini Product Statistics ======-->
