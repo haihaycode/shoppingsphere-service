@@ -9,7 +9,7 @@ public enum BreadcrumbPath {
     HOME(Arrays.asList(new Breadcrumb("Home", "/"))),
     REGISTER(Arrays.asList(new Breadcrumb("Home", "/"), new Breadcrumb("Register", "/register"))),
     LOGIN(Arrays.asList(new Breadcrumb("Home", "/"), new Breadcrumb("Login", "/login"))),
-    PRODUCTS(Arrays.asList(new Breadcrumb("Home", "/"), new Breadcrumb("Category", "/category"))),
+    PRODUCTS(Arrays.asList(new Breadcrumb("Home", "/"), new Breadcrumb("Products", "/products"))),
     CART(Arrays.asList(new Breadcrumb("Home", "/"), new Breadcrumb("Cart", "/cart"))),
     CHECKOUT(Arrays.asList(new Breadcrumb("Home", "/"), new Breadcrumb("Cart", "/cart"), new Breadcrumb("Checkout", "/checkout"))),
     PROFILE(Arrays.asList(new Breadcrumb("Home", "/"), new Breadcrumb("Profile", "/profile"))),

@@ -6,11 +6,13 @@
 </head>
 <body>
 <section layout:fragment="content">
-
     <div th:replace="~{fragments/slider :: slider}"></div>
     <div th:replace="~{fragments/service :: service}"></div>
     <div th:replace="~{fragments/topSell :: topSell}"></div>
     <div th:replace="~{fragments/categories :: categories}"></div>
+    <div th:replace="~{fragments/banner :: banner}"></div>
+    <!--    CALL API justForYou-->
+    <div th:replace="~{fragments/justForYou :: justForYou}"></div>
 </section>
 </body>
 </html>
