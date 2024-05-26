@@ -31,4 +31,9 @@ public class ProfileController {
     public String MyReturnsAndCancellations(){
         return "client/account/MyReturnsAndCancellations";
     }
+
+    @GetMapping("/wishlist")
+    public String wishlist(){
+        return "client/wishlist";
+    }
 }

@@ -1310,11 +1310,11 @@
                         <ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
                             <li>
 
-                                <a href="index.html"><i class="fas fa-home"></i></a>
+                                <a th:href="@{/}"><i class="fas fa-home"></i></a>
                             </li>
                             <li>
 
-                                <a href="wishlist.html"><i class="far fa-heart"></i></a>
+                                <a th:href="@{account/wishlist}"><i class="far fa-heart"></i></a>
                             </li>
                             <nav th:replace="~{cart/cart-modal :: cart-modal}"></nav>
                         </ul>
