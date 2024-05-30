@@ -31,20 +31,10 @@ public class Order implements Serializable {
     @JoinColumn(name = "ORDER_STATUS_ID")
     private OrderStatus status;
 
-    @Length(min = 5, max = 45, message = "Tên phải trong khoảng từ 5 - 45 ký tự!")
-    @Column(name = "CUSTOMER_NAME", nullable = false)
-    private String customerName;
 
-    @Length(min = 10, max = 255, message = "Vui lòng nhập vào địa chỉ nhận hàng hợp lệ!")
-    @Column(name = "SHIPPING_ADDRESS", nullable = false)
-    private String address;
-
-    @Length(min = 9, max = 15, message = "Số điện thoại phải từ 9 đến 15 ký tự số!")
-    @Column(name = "PHONE_NUMBER", nullable = false, length = 15)
-    private String phoneNumber;
 
     @Column(name = "AMOUNT", nullable = false)
-    private Integer amount;
+    private Double amount;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "UPDATED_TIME", insertable = false, updatable = false)
@@ -57,5 +47,9 @@ public class Order implements Serializable {
     @ToString.Exclude
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderLine> orderLines;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Address address;
 
 }

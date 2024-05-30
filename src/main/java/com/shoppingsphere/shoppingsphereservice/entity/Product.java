@@ -61,8 +61,7 @@ public class Product implements Serializable {
     @NotNull(message = "Vui lòng nhập vào giá sản phẩm")
     @Range(min = 0, max = 100000000, message = "Giá trong khoảng từ 0 - 100 triệu")
     @Column(name = "PRICE")
-    private Integer price ;
-
+    private Double price ;
 
 
 
@@ -82,9 +81,14 @@ public class Product implements Serializable {
     @Column(name = "DESCRIPTION", columnDefinition="TEXT")
     private String description;
 
-    @Length(max = 255, message = "Đường dẫn quá dài!")
-    @Column(name = "THUMBNAIL", length = 255)
+
+    @Column(name = "THUMBNAIL", columnDefinition="TEXT")
     private String thumbnail;
+
+
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Thumbnail> thumbnails ;
 
     @Column(name = "ENABLED")
     private Boolean enabled;
@@ -106,7 +110,7 @@ public class Product implements Serializable {
 
     @Transient
     private MultipartFile imageFile;
-    public Integer getDiscountedPrice() {
+    public Double getDiscountedPrice() {
         return this.price * (100 - this.discountPercent) / 100;
     }
 }

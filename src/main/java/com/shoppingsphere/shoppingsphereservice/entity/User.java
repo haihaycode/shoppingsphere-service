@@ -1,5 +1,6 @@
 package com.shoppingsphere.shoppingsphereservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,10 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
 @Entity
 @Getter
 @Setter
@@ -44,8 +43,10 @@ public class User implements UserDetails{
     @Column(name = "EMAIL", length = 45, unique = true)
     private String email;
 
-    @Column(name = "ADDRESS", length = 255)
-    private String address;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> address;
 
     @Temporal(TemporalType.DATE)
     private Date birthdate;
@@ -67,9 +68,9 @@ public class User implements UserDetails{
     @Column(name = "UPDATED_TIME", insertable = false, updatable = false)
     private Date updatedTime;
 
-//    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, orphanRemoval=true)
-//    @JsonIgnore
-//    private List<Order> orders;
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, orphanRemoval=true)
+    @JsonIgnore
+    private List<Order> orders;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
