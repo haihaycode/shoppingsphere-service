@@ -10,8 +10,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role implements Serializable {
