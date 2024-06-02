@@ -2,8 +2,10 @@ package com.shoppingsphere.shoppingsphereservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.shoppingsphere.shoppingsphereservice.auth.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Nationalized;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,10 +28,9 @@ public class User implements UserDetails{
     private Integer id;
 
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-    private Set<Role> roles;
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.CUSTOMER;
 
     @Column(name = "FULL_NAME", length = 45)
     private String fullname;
@@ -37,12 +38,13 @@ public class User implements UserDetails{
     @Column(name = "USERNAME", length = 45, unique = true)
     private String username;
 
+
+
     @Column(name = "PASSWORD", length = 128)
     private String password;
 
     @Column(name = "EMAIL", length = 45, unique = true)
     private String email;
-
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -57,8 +59,7 @@ public class User implements UserDetails{
     @Column(name = "GENDER")
     private Boolean gender;
 
-    @Column(name = "PHONE_NUMBER", length=15)
-    private String phoneNumber;
+
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_TIME", insertable = false, updatable = false)
@@ -68,15 +69,59 @@ public class User implements UserDetails{
     @Column(name = "UPDATED_TIME", insertable = false, updatable = false)
     private Date updatedTime;
 
+    @Nationalized
+    @Column(name = "AVATAR", length = 1000)
+    private String avatar;
+
     @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, orphanRemoval=true)
     @JsonIgnore
     private List<Order> orders;
 
+    @Column(name = "resetPasswordToken")
+    private String resetPasswordToken;
+
+    @Column(name = "resetPasswordTokenExpiryDate")
+    private Date resetPasswordTokenExpiryDate;
+
+    @Column(name = "accessToken")
+    private String accessToken;
+
+
+     /*
+    |||||| Method ||||||||
+     */
+
+
+    public String getAvatar() {
+        return avatar == null ? "/public/user/images/avatar/default-avatar.png" : avatar;
+    }
+    public void generateResetPasswordToken() {
+        this.resetPasswordToken = java.util.UUID.randomUUID().toString();
+        this.resetPasswordTokenExpiryDate = new Date(System.currentTimeMillis() + 1000 * 60 *15);
+    }
+
+    public void clearResetPasswordToken() {
+        this.resetPasswordToken = null;
+        this.resetPasswordTokenExpiryDate = null;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (!id.equals(user.id)) return false;
+        if (!username.equals(user.username)) return false;
+        return email.equals(user.email);
+    }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        roles.forEach(e -> authorities.add(new SimpleGrantedAuthority("ROLE_" + e.getName())));
-        return authorities;
+        return role.getAuthorities();
     }
 
     @Override
@@ -96,6 +141,10 @@ public class User implements UserDetails{
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return true;
+    }
+
+    public boolean isAdmin() {
+        return getRole() == Role.ADMIN;
     }
 }

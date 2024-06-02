@@ -14,7 +14,7 @@ public interface UserRepository  extends JpaRepository<User, Integer> {
 
     User findByEmail(String email);
 
-    User findByPhoneNumber(String phoneNumber);
+
 
     @Modifying
     @Query("UPDATE User u SET u.enabled = :disable WHERE u.username = :username")
@@ -36,10 +36,10 @@ public interface UserRepository  extends JpaRepository<User, Integer> {
     @Query("UPDATE User u SET u.gender = :gender WHERE u.username = :username")
     void updateGender(@Param("username") String username, @Param("gender") boolean gender);
 
-    @Query("SELECT new com.shoppingsphere.shoppingsphereservice.dto.UserDTO(u.id, u.username, u.email, u.phoneNumber, u.enabled) FROM User u")
+    @Query("SELECT new com.shoppingsphere.shoppingsphereservice.dto.UserDTO(u.id, u.username, u.email, u.enabled) FROM User u")
     Page<UserDTO> getPages(Pageable pageable);
 
-    @Query("SELECT new com.shoppingsphere.shoppingsphereservice.dto.UserDTO(u.id, u.username, u.email, u.phoneNumber, u.enabled) "
-            + "FROM User u WHERE u.username like :search OR u.email like :search OR u.phoneNumber like :search")
+    @Query("SELECT new com.shoppingsphere.shoppingsphereservice.dto.UserDTO(u.id, u.username, u.email,  u.enabled) "
+            + "FROM User u WHERE u.username like :search OR u.email like :search ")
     Page<UserDTO> getPages(@Param("search") String search, Pageable pageable);
 }

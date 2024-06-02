@@ -1,65 +1,102 @@
-package com.shoppingsphere.shoppingsphereservice.config;
+    package com.shoppingsphere.shoppingsphereservice.config;
 
 
-import com.shoppingsphere.shoppingsphereservice.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+    import com.shoppingsphere.shoppingsphereservice.auth.Role;
+    import com.shoppingsphere.shoppingsphereservice.entity.User;
+    import com.shoppingsphere.shoppingsphereservice.service.NotificationService;
+    import com.shoppingsphere.shoppingsphereservice.service.user.UserService;
 
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig {
+    import lombok.RequiredArgsConstructor;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.security.authentication.AuthenticationProvider;
+    import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+    import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+    import org.springframework.security.core.userdetails.UsernameNotFoundException;
+    import org.springframework.security.web.SecurityFilterChain;
+    import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+    import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-    @Autowired
-    private UserService userService;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    @Configuration
+    @EnableWebSecurity
+    @RequiredArgsConstructor
+    public class WebSecurityConfig {
+        @Autowired
+        NotificationService notificationService;
+        @Autowired
+        UserService userService;
+        @Autowired
+        AuthenticationProvider authenticationProvider;
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+            http
+                    .authorizeHttpRequests(auth -> auth
+                            .requestMatchers(
+                                    "/public/**",
+                                    "/",
+                                    "/home",
+                                    "/detail/**",
+                                    "/reset-password/**",
+                                    "/forgot-password",
+                                    "/api/v1/**",
+                                    "/search/**",
+                                    "/show",
+                                    "/login",
+                                    "/register",
+                                    "/login"
+                            ).permitAll()
+                            .requestMatchers(
+                                    "/cart/**",
+                                    "/cart",
+                                    "/checkout/**",
+                                    "/checkout",
+                                    "/order/all",
+                                    "/account",
+                                    "/account/**"
+                            ).hasAnyRole(Role.CUSTOMER.name(), Role.ADMIN.name())
+                            .requestMatchers(
+                                    "/admin/**",
+                                    "/user-manager"
+                            ).hasAnyRole(Role.ADMIN.name())
+                            .anyRequest().authenticated()
+                    )
+                    .authenticationProvider(authenticationProvider)
+                    .formLogin(form -> form
+                            .loginPage("/login")
+                            .defaultSuccessUrl("/home", true)
+                            .failureUrl("/account/login?error=true")
+                            .failureHandler(getCustomAuthenticationFailureHandler())
+                            .successHandler(getCustomAuthenticationSuccessHandler())
+                            .permitAll())
+                    .logout(logout -> logout
+                            .logoutUrl("/logout") // chỉnh sửa đường dẫn đăng xuất ở đây
+                            .logoutSuccessUrl("/") // thiết lập URL chuyển hướng sau khi đăng xuất thành công
+                            .permitAll());
+
+            return http.build();
+        }
+
+        private AuthenticationFailureHandler getCustomAuthenticationFailureHandler() {
+            return (request, response, exception) -> {
+                if (exception instanceof UsernameNotFoundException) {
+                    notificationService.addError(exception.getMessage());
+                } else {
+                    notificationService.addError("Password is incorrect");
+                }
+                response.sendRedirect("/login");
+            };
+        }
+
+        private AuthenticationSuccessHandler getCustomAuthenticationSuccessHandler() {
+            return (request, response, authentication) -> {
+
+                String redirect = request.getParameter("to");
+                User user = (User) userService.loadUserByUsername(authentication.getName());
+
+                notificationService.addInfo("Welcome back " + user.getFullname() + " !");
+                response.sendRedirect(redirect != null ? redirect : "/");
+            };
+        }
     }
-
-    private static final String[] PUBLIC_MATCHERS = { "/", "/about", "/contact", "/products**", "/products/**",
-            "/login", "/register" };
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers(PUBLIC_MATCHERS).permitAll()
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/profile**").hasRole("USER")
-                )
-                .formLogin(formLogin ->
-                        formLogin
-                                .usernameParameter("username")
-                                .passwordParameter("password")
-                                .loginPage("/login")
-                                .failureUrl("/login-error")
-                                .defaultSuccessUrl("/")
-                )
-                .rememberMe(rememberMe ->
-                        rememberMe
-                                .rememberMeParameter("remember-me")
-                                .key("rememberMe")
-                )
-                .logout(logoutLogout ->
-                        logoutLogout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .logoutSuccessUrl("/?logout").deleteCookies("remember-me")
-                )
-                .exceptionHandling(exceptionHandling ->
-                        exceptionHandling
-                                .accessDeniedPage("/403")
-                );
-
-
-        return http.build();
-    }
-}

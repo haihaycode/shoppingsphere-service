@@ -11,6 +11,5 @@ public class UserDTO {
     private Integer id;
     private String username;
     private String email;
-    private String phoneNumber;
     private	Boolean enabled;
 }

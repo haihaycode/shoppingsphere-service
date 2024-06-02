@@ -40,29 +40,18 @@
                                 <h1 class="gl-h1">SIGNIN</h1>
 
                                 <span class="gl-text u-s-m-b-30">If you have an account with us, please log in.</span>
-                                <form class="l-f-o__form">
-                                    <div class="gl-s-api">
-                                        <div class="u-s-m-b-15">
+                                <form class="l-f-o__form" th:action="@{/login}" method="post">
 
-                                            <button class="gl-s-api__btn gl-s-api__btn--fb" type="button"><i class="fab fa-facebook-f"></i>
-
-                                                <span>Signin with Facebook</span></button></div>
-                                        <div class="u-s-m-b-15">
-
-                                            <button class="gl-s-api__btn gl-s-api__btn--gplus" type="button"><i class="fab fa-google"></i>
-
-                                                <span>Signin with Google</span></button></div>
-                                    </div>
                                     <div class="u-s-m-b-30">
 
                                         <label class="gl-label" for="login-email">E-MAIL *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="login-email" placeholder="Enter E-mail"></div>
+                                        <input class="input-text input-text--primary-style" name="username" type="text" id="login-email" placeholder="Enter E-mail"></div>
                                     <div class="u-s-m-b-30">
 
                                         <label class="gl-label" for="login-password">PASSWORD *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="login-password" placeholder="Enter Password"></div>
+                                        <input class="input-text input-text--primary-style"  name="password" type="text" id="login-password" placeholder="Enter Password"></div>
                                     <div class="gl-inline">
                                         <div class="u-s-m-b-30">
 

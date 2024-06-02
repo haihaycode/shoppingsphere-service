@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class login {
     @GetMapping("/login")
-    public String register(Model model){
+    public String login(Model model){
         model.addAttribute("breadcrumbs", BreadcrumbPath.LOGIN.getBreadcrumbs());
         return "auth/login";
     }
+
+
+
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout=""
-      layout:decorate="~{layouts/user-layout}" xmlns:sec>
+      layout:decorate="~{layouts/user-layout}" >
 <head>
     <title>Đăng Ký Tài khoản</title>
 </head>
@@ -32,97 +32,65 @@
                         <div class="l-f-o">
                             <div class="l-f-o__pad-box">
                                 <h1 class="gl-h1">PERSONAL INFORMATION</h1>
-                                <form class="l-f-o__form">
-                                    <div class="gl-s-api">
-                                        <div class="u-s-m-b-15">
-
-                                            <button class="gl-s-api__btn gl-s-api__btn--fb" type="button"><i
-                                                    class="fab fa-facebook-f"></i>
-
-                                                <span>Signup with Facebook</span></button>
-                                        </div>
-                                        <div class="u-s-m-b-30">
-
-                                            <button class="gl-s-api__btn gl-s-api__btn--gplus" type="button"><i
-                                                    class="fab fa-google"></i>
-
-                                                <span>Signup with Google</span></button>
-                                        </div>
+                                <form id="registerForm" th:action="@{/register}" th:object="${register}" method="post">
+                                    <!-- col -->
+                                    <div class="form-floating mb-3">
+                                        <!-- input -->
+                                        <input th:field="*{fullname}" id="fullname" name="fullname" type="text" class="form-control"
+                                               placeholder="Fullname" aria-label="Fullname"
+                                               required>
+                                        <label for="fullname">Fullname</label>
+                                        <small></small>
                                     </div>
-                                    <div class="u-s-m-b-30">
-
-                                        <label class="gl-label" for="reg-fname">FIRST NAME *</label>
-
-                                        <input class="input-text input-text--primary-style" type="text"
-                                               id="reg-fname" placeholder="First Name">
+                                    <div class="form-floating mb-3">
+                                        <!-- input -->
+                                        <input th:field="*{username}" id="username" name="username" type="text" class="form-control"
+                                               placeholder="Username" aria-label="Username"
+                                               required>
+                                        <label for="fullname">Username</label>
+                                        <small></small>
                                     </div>
-                                    <div class="u-s-m-b-30">
-
-                                        <label class="gl-label" for="reg-lname">LAST NAME *</label>
-
-                                        <input class="input-text input-text--primary-style" type="text"
-                                               id="reg-lname" placeholder="Last Name">
+                                    <div class="form-floating mb-3">
+                                        <!-- input -->
+                                        <input th:field="*{email}" id="email" name="email" type="text" class="form-control"
+                                               placeholder="Email" aria-label="Email"
+                                               required>
+                                        <label for="fullname">Email</label>
+                                        <small></small>
                                     </div>
-                                    <div class="gl-inline">
-                                        <div class="u-s-m-b-30">
-
-                                            <!--====== Date of Birth Select-Box ======-->
-
-                                            <span class="gl-label">BIRTHDAY</span>
-                                            <div class="gl-dob"><select
-                                                    class="select-box select-box--primary-style">
-                                                <option selected>Month</option>
-                                                <option value="male">January</option>
-                                                <option value="male">February</option>
-                                                <option value="male">March</option>
-                                                <option value="male">April</option>
-                                            </select><select class="select-box select-box--primary-style">
-                                                <option selected>Day</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                            </select><select class="select-box select-box--primary-style">
-                                                <option selected>Year</option>
-                                                <option value="1991">1991</option>
-                                                <option value="1992">1992</option>
-                                                <option value="1993">1993</option>
-                                                <option value="1994">1994</option>
-                                            </select></div>
-                                            <!--====== End - Date of Birth Select-Box ======-->
-                                        </div>
-                                        <div class="u-s-m-b-30">
-
-                                            <label class="gl-label" for="gender">GENDER</label><select
-                                                class="select-box select-box--primary-style u-w-100"
-                                                id="gender">
-                                            <option selected>Select</option>
-                                            <option value="male">Male</option>
-                                            <option value="male">Female</option>
-                                        </select>
-                                        </div>
-                                    </div>
-                                    <div class="u-s-m-b-30">
-
-                                        <label class="gl-label" for="reg-email">E-MAIL *</label>
-
-                                        <input class="input-text input-text--primary-style" type="text"
-                                               id="reg-email" placeholder="Enter E-mail">
-                                    </div>
-                                    <div class="u-s-m-b-30">
-
-                                        <label class="gl-label" for="reg-password">PASSWORD *</label>
-
-                                        <input class="input-text input-text--primary-style" type="text"
-                                               id="reg-password" placeholder="Enter Password">
-                                    </div>
-                                    <div class="u-s-m-b-15">
-
-                                        <button class="btn btn--e-transparent-brand-b-2"
-                                                type="submit">CREATE</button>
+                                    <div class="form-floating mb-3">
+                                        <!-- input -->
+                                        <input th:field="*{password}" id="password" name="password" type="text" class="form-control"
+                                               placeholder="Password" aria-label="Password"
+                                               required>
+                                        <label for="password">Password</label>
+                                        <small></small>
                                     </div>
 
-                                    <a class="gl-link" href="#">Return to Store</a>
+                                    <div class="form-floating mb-3">
+                                        <!-- input -->
+                                        <input th:field="*{verifyPassword}" id="pass" name="password" type="text" class="form-control"
+                                               placeholder="Password" aria-label="Password"
+                                               required>
+                                        <label for="password">Xác nhận Password</label>
+                                        <small></small>
+                                    </div>
+
+                                    <div class="col-12 d-grid mb-3">
+                                        <button type="submit" class="btn btn-primary">Register</button>
+                                    </div>
+
+
+
+
+                                    <!-- text -->
+                                    <p class="text-center"><small>By continuing, you agree to our
+                                        <a href="#!"> Terms of Service</a>
+                                        &
+                                        <a href="#!">Privacy
+                                            Policy
+                                        </a>
+                                    </small></p>
                                 </form>
                             </div>
                         </div>

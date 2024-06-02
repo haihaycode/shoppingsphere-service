@@ -16,7 +16,6 @@ public interface UserService extends UserDetailsService, BaseService<User, Integ
 
     User findByEmail(String email);
 
-    User findByPhoneNumber(String phoneNumber);
 
     boolean disableUser(String username, boolean enabled);
 
