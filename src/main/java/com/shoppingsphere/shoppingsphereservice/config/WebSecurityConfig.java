@@ -17,6 +17,8 @@
     import org.springframework.security.web.SecurityFilterChain;
     import org.springframework.security.web.authentication.AuthenticationFailureHandler;
     import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+    import org.springframework.ui.Model;
+    import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
     @Configuration
@@ -65,8 +67,8 @@
                     .authenticationProvider(authenticationProvider)
                     .formLogin(form -> form
                             .loginPage("/login")
-                            .defaultSuccessUrl("/home", true)
-                            .failureUrl("/account/login?error=true")
+                            .defaultSuccessUrl("/", true)
+                            .failureUrl("/login?error=true")
                             .failureHandler(getCustomAuthenticationFailureHandler())
                             .successHandler(getCustomAuthenticationSuccessHandler())
                             .permitAll())
@@ -81,10 +83,11 @@
         private AuthenticationFailureHandler getCustomAuthenticationFailureHandler() {
             return (request, response, exception) -> {
                 if (exception instanceof UsernameNotFoundException) {
-                    notificationService.addError(exception.getMessage());
+                    request.getSession().setAttribute("error", exception.getMessage());
                 } else {
-                    notificationService.addError("Password is incorrect");
+                    request.getSession().setAttribute("error", "Password is incorrect");
                 }
+
                 response.sendRedirect("/login");
             };
         }

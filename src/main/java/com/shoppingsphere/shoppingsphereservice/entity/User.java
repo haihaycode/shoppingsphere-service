@@ -62,11 +62,11 @@ public class User implements UserDetails{
 
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CREATED_TIME", insertable = false, updatable = false)
-    private Date createdTime;
+    @Column(name = "CREATED_TIME",  updatable = false)
+    private Date createdTime= new Date();
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "UPDATED_TIME", insertable = false, updatable = false)
+    @Column(name = "UPDATED_TIME", updatable = false)
     private Date updatedTime;
 
     @Nationalized

@@ -29,7 +29,6 @@ public class ApplicationConfiguration {
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(userService);
         provider.setHideUserNotFoundExceptions(false);
-
         return provider;
     }
 

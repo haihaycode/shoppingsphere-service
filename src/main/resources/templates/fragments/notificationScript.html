@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="notificationScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var notifications = /*[[${noticer}]]*/ 'default';
+        document.addEventListener('DOMContentLoaded', function() {
+            var noticer = JSON.parse(notifications);
+            if(noticer){
+                noticer.forEach(function(item) {
+                    noticer.forEach(function(item) {
+                        console.log(item.type)
+                        switch(item.type){
+                            case "SUCCESS":
+                                toastr.success(item.message);
+                                break;
+                            case "INFO":
+                                toastr.info(item.message);
+                                break;
+                            case "WARNING":
+                                toastr.warning(item.message);
+                                break;
+                            case "ERROR":
+                                toastr.error(item.message);
+                                break;
+                            default:
+                                toastr.info(item.message);
+                        }
+                        $("#showMess").text(item.message);
+                    });
+                });}
+        }, false);
+        /*]]>*/
+    </script>
+</head>
+</html>

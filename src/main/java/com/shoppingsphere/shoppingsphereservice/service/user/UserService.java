@@ -28,4 +28,5 @@ public interface UserService extends UserDetailsService, BaseService<User, Integ
     boolean changeGender(String username, boolean gender);
 
     long getTotalUser();
+
 }

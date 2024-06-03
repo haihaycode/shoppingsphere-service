@@ -20,6 +20,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Date;
+
 @Controller
 public class registerController {
     @Autowired
@@ -33,61 +37,41 @@ public class registerController {
         return "auth/register";
     }
     @PostMapping("/register")
-    String register(@Valid @ModelAttribute("register") RegisterDTO register, BindingResult result) {
+    public String register(@Valid @ModelAttribute("register") RegisterDTO register, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        String view = "auth/register";
 
         if (result.hasErrors()){
-            System.out.println(result.getAllErrors());
-            return "auth/register";
+            return view;
         }
-        
-        String fullname = register.getFullname();
-        String username = register.getUsername();
-        String password = register.getPassword();
-        String verifyPassword = register.getVerifyPassword();
-        String email = register.getEmail();
-
-
-        if (!password.equals(verifyPassword)) {
-            result.rejectValue("password", "register.password", "Mật khẩu không trùng khớp!");
-            result.rejectValue("verifyPassword", "register.verifyPassword", "Mật khẩu không trùng khớp!");
-            return "auth/register";
+        if (!register.getPassword().equals(register.getVerifyPassword())) {
+            String errorMsg = "Mật khẩu không trùng khớp!";
+            result.rejectValue("password", "register.password", errorMsg);
+            result.rejectValue("verifyPassword", "register.verifyPassword", errorMsg);
+            return view;
         }
 
         User user = new User();
-        user.setFullname(fullname);
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(verifyPassword);
-
-
-
+        user.setUsername(register.getUsername());
+        user.setEmail(register.getEmail());
+        user.setPassword(register.getPassword());
 
 
         try {
-            User u = userService.create(user);
-//            if(u!=null) {
-//                sendmail.SendEmail(u.getEmail());
-//            }else {
-//                return "Send mail thất bại";
-//            }
-
-            return "redirect:/";
-        } catch (DuplicateUsernameException e) {
-            e.printStackTrace();
+            userService.create(user);
+            notificationService.addSuccess("Đăng ký thành công vui lòng đăng nhập",5000);
+            notificationService.renderRedirect(redirectAttributes);
+            view = "redirect:/login";
+        } catch(DuplicateUsernameException ex) {
             result.rejectValue("username", "register.username", "Trùng tài khoản!");
-            return "auth/register";
-        } catch (DuplicateEmailException e) {
-            e.printStackTrace();
+        } catch(DuplicateEmailException ex) {
             result.rejectValue("email", "register.email", "Trùng thư điện tử!");
-            return "auth/register";
-        } catch (Exception e) {
-            e.printStackTrace();
-            result.reject("error", "Có lỗi xảy ra!");
-            return "redirect:/";
+        } catch(Exception ex) {
+            notificationService.addError("Đăng ký thất bại ",5000);
+            notificationService.render(redirectAttributes);
+            view = "redirect:/";
         }
 
-
+        return view;
     }
-
-
 }

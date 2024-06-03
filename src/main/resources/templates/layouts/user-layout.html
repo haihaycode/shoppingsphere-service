@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Shopping Sphere</title>
-    <link th:href="@{/images/favicon.png}" rel="shortcut icon">
+    <link href="/public/images/favicon.png" rel="shortcut icon">
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>
 
     <!--====== Google Font ======-->
@@ -21,6 +21,10 @@
 
     <!--====== App ======-->
     <link rel="stylesheet" href="/public/css/app.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 <div class="config">
@@ -69,6 +73,8 @@
 </script>
 <script src="https://www.google-analytics.com/analytics.js" async defer></script>
 
+<div th:replace="~{fragments/notificationScript :: notificationScript}"></div>
+
 <!--====== Vendor Js ======-->
 <script src="/public/js/vendor.js"></script>
 
@@ -78,6 +84,10 @@
 <!--====== App ======-->
 <script src="/public/js/app.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <!--====== Noscript ======-->
 <noscript>
     <div class="app-setting">
@@ -86,7 +96,6 @@
                 <div class="col-12">
                     <div class="app-setting__wrap">
                         <h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1>
-
                         <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a
                                 JavaScript-capable browser.</span>
                     </div>

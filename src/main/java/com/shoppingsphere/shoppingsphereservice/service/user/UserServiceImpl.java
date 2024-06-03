@@ -45,11 +45,7 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateUsernameException();
         if (findByEmail(u.getEmail()) != null)
             throw new DuplicateEmailException();
-
-
         u.setPassword(new BCryptPasswordEncoder().encode(u.getPassword()));
-
-
         u.setEnabled(true);
         return userRepository.save(u);
     }

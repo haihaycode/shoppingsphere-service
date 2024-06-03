@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class NotificationService {
     }
 
     public void addSuccess(String message, long duration) {
-        add(MessageType.ERROR, message, duration);
+        add(MessageType.SUCCESS, message, duration);
     }
 
     public void addInfo(String message, long duration) {
@@ -97,6 +98,10 @@ public class NotificationService {
 
     public void render(Model model) {
         model.addAttribute("noticer", this.getJson());
+        clear();
+    }
+    public void renderRedirect(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("noticer", this.getJson());
         clear();
     }
 
