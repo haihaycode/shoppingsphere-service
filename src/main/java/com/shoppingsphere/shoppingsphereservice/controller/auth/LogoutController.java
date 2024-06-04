@@ -14,9 +14,9 @@ public class LogoutController {
     @GetMapping("/logout")
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){ // kiểm tra đã xác thực chưa , nếu rồi thì đăng xuất
+        if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/index";
+        return "redirect:/login?dangxuattaikhoan";
     }
 }

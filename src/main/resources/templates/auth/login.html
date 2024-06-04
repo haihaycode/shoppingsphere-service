@@ -37,7 +37,7 @@
                                 <div class="u-s-m-b-15">
 
                                     <a class="l-f-o__create-link btn--e-transparent-brand-b-2" th:href="@{/register?dangky}">Tạo mới một tài khoản</a></div>
-                                <h1 class="gl-h1">Đăng ký</h1>
+                                <h1 class="gl-h1">Đăng Nhập</h1>
 
                                 <span class="gl-text u-s-m-b-10">Nếu bạn có tài khoản với chúng tôi, vui lòng đăng nhập..</span>
                                 <form class="l-f-o__form" th:action="@{/login}" method="post">
@@ -45,9 +45,9 @@
 
                                     <div class="u-s-m-b-30">
 
-                                        <label class="gl-label" for="login-email">Tài khoản *</label>
+                                        <label class="gl-label" for="login-username">Tài khoản *</label>
 
-                                        <input class="input-text input-text--primary-style" name="username" type="text" id="login-email" placeholder="Vui lòng nhập tài khoản "></div>
+                                        <input class="input-text input-text--primary-style" name="username" type="text" id="login-username" placeholder="Vui lòng nhập tài khoản "></div>
                                     <div class="u-s-m-b-30">
 
                                         <label class="gl-label" for="login-password">Mật khẩu *</label>
@@ -66,7 +66,7 @@
                                         <!--====== Check Box ======-->
                                         <div class="check-box">
 
-                                            <input type="checkbox" id="remember-me">
+                                            <input type="checkbox" name="remember-me" id="remember-me">
                                             <div class="check-box__state check-box__state--primary">
 
                                                 <label class="check-box__label" for="remember-me">Nhớ lần đăng nhập này </label></div>
