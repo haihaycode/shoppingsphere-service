@@ -38,6 +38,9 @@ public class Category implements Serializable {
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> products;
 
+    @Column(name = "ENABLED", length = 45)
+    private Boolean enabled;
+
     @Transient
     private MultipartFile image;
 

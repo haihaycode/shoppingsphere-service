@@ -35,6 +35,9 @@ public class Brand implements Serializable {
     @Column(name = "LOGO", length = 255)
     private String logo;
 
+    @Column(name = "ENABLED", length = 45)
+    private Boolean enabled;
+
     @JsonIgnore
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> products;

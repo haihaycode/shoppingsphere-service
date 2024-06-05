@@ -976,39 +976,11 @@
                         <!--====== List ======-->
                         <ul class="ah-list ah-list--design2 ah-list--link-color-secondary">
 
-
-                            <li class="has-dropdown">
-
-                                <a>DANH MỤC<i class="fas fa-angle-down u-s-m-l-6"></i></a>
-
-                                <!--====== Dropdown ======-->
-
-                                <span class="js-menu-toggle"></span>
-                                <ul style="width:200px">
-                                    <li>
-
-                                        <a href="blog-left-sidebar.html">Blog Left Sidebar</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="blog-right-sidebar.html">Blog Right Sidebar</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="blog-sidebar-none.html">Blog Sidebar None</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="blog-masonry.html">Blog Masonry</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="blog-detail.html">Blog Details</a>
-                                    </li>
-                                </ul>
-                                <!--====== End - Dropdown ======-->
-                            </li>
                             <li>
+
+                                <a th:href="@{/}">TRANG CHỦ</a>
+                            </li>
+
 
                             <li class="has-dropdown">
 
@@ -1019,25 +991,8 @@
 
                                 <span class="js-menu-toggle"></span>
                                 <ul style="width:200px">
-                                    <li>
-
-                                        <a href="blog-left-sidebar.html">Blog Left Sidebar</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="blog-right-sidebar.html">Blog Right Sidebar</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="blog-sidebar-none.html">Blog Sidebar None</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="blog-masonry.html">Blog Masonry</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="blog-detail.html">Blog Details</a>
+                                    <li th:each="brand : ${brands}">
+                                        <a href="#" th:text="${brand.name}">Brand name</a>
                                     </li>
                                 </ul>
                                 <!--====== End - Dropdown ======-->

@@ -33,4 +33,7 @@ public class Address implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
+
+    @Column(name = "ENABLED", length = 45)
+    private Boolean enabled;
 }

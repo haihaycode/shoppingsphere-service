@@ -37,21 +37,9 @@ public class Product implements Serializable {
     @JoinColumn(name = "CATEGORY_ID")
     public Category category;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-                name = "PRODUCT_COLOR",
-            joinColumns = @JoinColumn(name = "PRODUCT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "COLOR_ID")
-    )
-    private List<Color> colors;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "PRODUCT_SIZE",
-            joinColumns = @JoinColumn(name = "PRODUCT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "SIZE_ID")
-    )
-    private List<Size> sizes;
+
+
 
 
     @Column(name = "DISCOUNT_PERCENT")

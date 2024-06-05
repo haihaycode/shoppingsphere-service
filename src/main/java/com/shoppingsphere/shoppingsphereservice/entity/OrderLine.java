@@ -29,11 +29,7 @@ public class OrderLine implements Serializable {
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "COLOR_ID")
-    private Color color;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "SIZE_ID")
-    private Size size;
+
+
 }
